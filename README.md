@@ -1,4 +1,3 @@
-====================
 Novutec Whois Daemon
 ====================
 
@@ -9,7 +8,6 @@ See: http://tools.ietf.org/html/draft-sheng-weirds-icann-rws-dnrd-01
 
 Copyright (c) 2007 - 2012 Novutec Inc. (http://www.novutec.com)
 Licensed under the Apache License, Version 2.0 (the "License").
-
 
 Installation
 ------------
@@ -24,18 +22,16 @@ To use existing backend handlers, import existing structure SQL file to your dat
 Usage
 -----
 
-    * start in standalone daemon mode (only for debugging / testing):
-    ./whoisd -c <path_to_config>
+* start in standalone daemon mode (only for debugging / testing):
+`./whoisd -c <path_to_config>` 
 
-    * run as fcgi
-    ./whoisd.fcgi -c <path_to_config>
+* run as fcgi
+`./whoisd.fcgi -c <path_to_config>`
 
-    * run by gunicorn (config should be /etc/whoisd.yaml)
-    gunicorn whoisd
+* run by gunicorn (config should be /etc/whoisd.yaml)
+`gunicorn whoisd`
 
-
-    For more deployment options, see http://flask.pocoo.org/docs/deploying/
-
+For more deployment options, see http://flask.pocoo.org/docs/deploying/
 
 3rd Party Libraries
 -------------------
@@ -53,9 +49,7 @@ in fcgi mode:
 Issues
 ------
 
-Please report any issues via [github issues]{https://github.com/novutec/whois_daemon/issues}
-
-
+Please report any issues via https://github.com/novutec/whois_daemon/issues
 
 LICENSE and COPYRIGHT
 -----------------------

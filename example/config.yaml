@@ -1,0 +1,25 @@
+# configuration of the daemon itself
+daemon:
+    bind: 'localhost'
+    port: 5000
+    # user: 'www-data'
+    debug: 0
+    umask: 000
+    detach: 0   # start daemonized
+    chroot_directory: ~
+    pid: '/var/run/pyRWSDNRDd.pid'
+    template_path: '/var/www/templates'
+    logging:
+        level:    'debug'
+        module:   'file'
+        dest:     '/var/log/pyRWSDNRDd.log'
+
+# configuration of the used backend handler
+backend:
+    module: 'mysql'
+    connection:
+        host:     'localhost'
+        port:      3306
+        user:     'rws_dnrd'
+        password: 'demodemo'
+        db:       'rws_dnrd'

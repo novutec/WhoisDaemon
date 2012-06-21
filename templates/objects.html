@@ -1,0 +1,268 @@
+{% macro Domain(item, additional) -%}
+<div class="domainObj">
+	<table>
+		<tr>
+			<td class="name label">Name:</td>
+			<td class="name value">{{ item.name }}</td>
+		</tr>
+		<tr>
+			<td class="name label">Name IDN:</td>
+			<td class="name value">{{ item.name_idn }}</td>
+		</tr>
+		<tr>
+			<td class="status label">Status:</td>
+			<td class="status value">
+				{% if item.status %} 
+					{% for status in item.status %}
+						{{ status }}<br>
+					{% endfor %}
+				{% else %}
+					OK
+				{% endif %}
+			</td>
+		</tr>
+		{% if item.crDate %}
+		<tr>
+			<td class="created label">Created:</td>
+			<td class="created value">{{ item.crDate }}</td>
+		</tr>
+		{% endif %}
+		{% if item.upDate %}
+		<tr>
+			<td class="created label">Last Updated:</td>
+			<td class="created value">{{ item.upDate }}</td>
+		</tr>
+		{% endif %}
+		{% if item.exDate %}
+		<tr>
+			<td class="created label">Expiration Date:</td>
+			<td class="created value">{{ item.exDate }}</td>
+		</tr>
+		{% endif %}
+		
+		{% if item.ns %}
+		<tr>
+			<td class="ns label">Name Server:</td>
+			<td class="ns value">
+				{% for ns in item.ns_converted %}
+					{% if ns.hostobj %}
+						{% if ns.hostname in additional['hosts'] %}
+							<a href="#{{ ns.hostname }}">{{ ns.hostname }}</a>
+						{% else %}
+							<a href="/host/{{ ns.hostname }}">{{ ns.hostname }}</a>
+						{% endif %}
+					{% else %}
+						{{ ns.hostname }}{% if ns.ips %}
+						<ul>
+							{% for ip in ns.ips %}
+							<li>{{ ip }}</li>
+							{% endfor %}	
+						</ul>{% endif %}
+					{% endif %}
+					<br>
+				{% endfor %}
+			</td>
+		</tr>	
+		{% endif %}
+		
+		{% if item.registrant %}
+		<tr>
+			<td class="contact registrant label">Registrant:</td>
+			{% if item.registrant.roid in additional['contacts'] %}
+				<td class="contact registrant value"><a href="#{{ item.registrant.roid }}">{{ item.registrant.roid }}</a></td>
+			{% else %}
+				<td class="contact registrant value"><a href="/contact/{{ item.registrant.roid }}">{{ item.registrant.roid }}</a></td>
+			{% endif %}
+		</tr>
+		{% endif %}
+		
+		{% if item.contact %}
+			{% for contact in item.contact %}	
+			<tr>
+				<td class="contact {{contact.type}} label">{{contact.type}} Contact:</td>
+				{% if contact.roid in additional['contacts'] %}
+					<td class="contact {{contact.type}} value"><a href="#{{ contact.roid }}">{{ contact.roid }}</a></td>
+				{% else %}
+					<td class="contact {{contact.type}} value"><a href="/contact/{{ contact.roid }}">{{ contact.roid }}</a></td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		{% endif %}
+		
+		{% if item.registrar %}
+			{% for registrar in item.registrar %}	
+			<tr>
+				<td class="registrar {{registrar.type}} label">{{registrar.type}} Registrar:</td>
+				{% if registrar.roid in additional['registrars'] %}
+					<td class="registrar {{registrar.type}} value"><a href="#{{ registrar.roid }}">{{ registrar.roid }}</a></td>
+				{% else %}
+					<td class="registrar {{registrar.type}} value"><a href="/registrar/{{ registrar.roid }}">{{ registrar.roid }}</a></td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		{% endif %}
+	</table>
+</div>
+{%- endmacro %}
+
+{% macro Contact(item, additional) -%}
+<div class="contactObj">
+	<table>
+		{% for post in item.postalInfo %}
+			{% if post.type == 'int' %}
+				{% if post.name %}
+					<tr>
+						<td class="name label">Name:</td>
+						<td class="name value">{{ post.name }}</td>
+					</tr>
+				{% endif %}	
+				{% if post.org %}
+					<tr>
+						<td class="org label">Organization:</td>
+						<td class="org value">{{ post.org }}</td>
+					</tr>
+				{% endif %}	
+				{% if post.addr %}
+				<tr>
+					<td class="address label">Address:</td>
+					<td class="address value">{% for street in post.addr.street %}{{street}}<br>{% endfor %}
+					{{ post.addr.city }}{% if post.addr.sp %} {{post.addr.sp}}{% endif %} {{ post.addr.pc }}<br>
+					{{ post.addr.cc }}
+					</td>
+				</tr>
+				{% endif %}	
+			{% endif %}
+		{% endfor %}
+		{% if item.voice %}
+			<tr>
+				<td class="phone label">Voice:</td>
+				<td class="phone value">{{ item.voice.number }}{% if item.voice.extension %}x{{item.voice.extension}}{% endif %}</td>
+			</tr>
+		{% endif %}	
+		{% if item.fax %}
+			<tr>
+				<td class="fax label">Fax:</td>
+				<td class="fax value">{{ item.fax.number }}{% if item.fax.extension %}x{{item.fax.extension}}{% endif %}</td>
+			</tr>
+		{% endif %}	
+		{% if item.email %}
+			<tr>
+				<td class="email label">Email:</td>
+				<td class="email value">{{ item.email }}</td>
+			</tr>
+		{% endif %}	
+		<tr>
+			<td class="status label">Status:</td>
+			<td class="status value">
+				{% if item.status %} 
+					{% for status in item.status %}
+						{{ status }}</br>
+					{% endfor %}
+				{% else %}
+					OK
+				{% endif %}
+			</td>
+		</tr>
+		{% if item.crDate %}
+		<tr>
+			<td class="created label">Created:</td>
+			<td class="created value">{{ item.crDate }}</td>
+		</tr>
+		{% endif %}
+		{% if item.upDate %}
+		<tr>
+			<td class="created label">Last Updated:</td>
+			<td class="created value">{{ item.upDate }}</td>
+		</tr>
+		{% endif %}
+		
+		{% if item.registrar %}
+			{% for registrar in item.registrar %}	
+			<tr>
+				<td class="registrar {{registrar.type}} label">{{registrar.type}} Registrar:</td>
+				{% if registrar.roid in additional['registrars'] %}
+					<td class="registrar {{registrar.type}} value"><a href="#{{ registrar.roid }}">{{ registrar.roid }}</a></td>
+				{% else %}
+					<td class="registrar {{registrar.type}} value"><a href="/registrar/{{ registrar.roid }}">{{ registrar.roid }}</a></td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		{% endif %}
+	</table>
+</div>
+{%- endmacro %}
+
+{% macro Host(item, additional) -%}
+<div class="hostObj">
+	<table>
+		<tr>
+			<td class="name label">Hostname:</td>
+			<td class="name value">{{ item.name }}</td>
+		</tr>
+		{% if item.addr %}
+		<tr>
+			<td class="addr label">IP:</td>
+			<td class="addr value">
+			{% for addr in item.addr %}
+				{{ addr.ip }}<br>
+			{% endfor %}
+			</td>
+		</tr>
+		{% endif %}
+		<tr>
+			<td class="status label">Status:</td>
+			<td class="status value">
+				{% if item.status %} 
+					{% for status in item.status %}
+						{{ status }}</br>
+					{% endfor %}
+				{% else %}
+					OK
+				{% endif %}
+			</td>
+		</tr>
+		{% if item.crDate %}
+		<tr>
+			<td class="created label">Created:</td>
+			<td class="created value">{{ item.crDate }}</td>
+		</tr>
+		{% endif %}
+		{% if item.upDate %}
+		<tr>
+			<td class="created label">Last Updated:</td>
+			<td class="created value">{{ item.upDate }}</td>
+		</tr>
+		{% endif %}
+		
+		{% if item.registrar %}
+			{% for registrar in item.registrar %}	
+			<tr>
+				<td class="registrar {{registrar.type}} label">{{registrar.type}} Registrar:</td>
+				{% if registrar.roid in additional['registrars'] %}
+					<td class="registrar {{registrar.type}} value"><a href="#{{ registrar.roid }}">{{ registrar.roid }}</a></td>
+				{% else %}
+					<td class="registrar {{registrar.type}} value"><a href="/registrar/{{ registrar.roid }}">{{ registrar.roid }}</a></td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		{% endif %}
+	</table>
+</div>
+{%- endmacro %}
+
+{% macro Registrar(item, additional) -%}
+<div class="registrarObj">
+	<table>
+		<tr>
+			<td class="name label">Name:</td>
+			<td class="name value">{{ item.name }}</td>
+		</tr>
+		{% if item.href %}
+		<tr>
+			<td class="name label">URL:</td>
+			<td class="name value"><a href="{{ item.href }}" target="_blank">{{ item.href }}</a></td>
+		</tr>
+		{% endif %}
+	</table>
+</div>
+{%- endmacro %}

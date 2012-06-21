@@ -1,0 +1,27 @@
+{% block additionals %}{% if additional.registrars or additional.contacts or additional.hosts %}
+{% import 'objects.html' as obj %}
+<div class="additionalInfos">
+<h2>Additional Informations</h2>
+{% for contact_id, contact in additional.contacts.iteritems() %}
+	<a name="{{contact_id}}">
+	<h3>Contact {{contact_id}}</h3>
+	{{ obj.Contact(contact, additional) }}
+	</a>
+{% endfor %}
+
+{% for hostname, host in additional.hosts.iteritems() %}
+	<a name="{{hostname}}">
+	<h3>Host {{hostname}}</h3>
+	{{ obj.Host(host, additional) }}
+	</a>
+{% endfor %}
+
+{% for registrar_id, registrar in additional.registrars.iteritems() %}
+	<a name="{{registrar_id}}">
+	<h3>Registrar {{registrar_id}}</h3>
+	{{ obj.Registrar(registrar, additional) }}
+	</a>
+{% endfor %}
+
+</div>
+{% endif %}{% endblock %}

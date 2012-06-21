@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% import 'objects.html' as obj %}
+
+{% block content %}
+
+
+{% if domains %}
+	{% for item in domains %} 
+		<h3>Domain {{item.name}}</h3>
+		{{ obj.Domain(item, additional) }}
+	{% endfor %}
+{% endif %}
+
+{% if contacts %}
+	<h2 class="contactObj">Contact Information</h2>
+	{% for item in contacts %} 
+		<h3>Contact {{item.roid}}</h3>
+		{{ obj.Contact(item, additional) }}
+	{% endfor %}
+{% endif %}
+
+{% if hosts %}
+	{% for item in hosts %} 
+		<h3>Host {{item.hostname}}</h3>
+		{{ obj.Host(item, additional) }}
+	{% endfor %}
+{% endif %}
+
+{% if registrars %}
+	{% for item in registrars %} 
+		<h3>Registrar {{item.roid}}</h3>
+		{{ obj.Registrar(item, additional) }}
+	{% endfor %}
+{% endif %}
+
+{% include 'additionals.html' %}
+
+{% endblock %}
