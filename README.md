@@ -1,7 +1,7 @@
-Novutec Whois Daemon
+Novutec WhoisDaemon
 ====================
 
-Novutec Whois Daemon is a implementation of the RESTful Web Service for 
+Novutec WhoisDaemon is a implementation of the RESTful Web Service for 
 Domain Name Registration Data DRAFT.
 
 See: http://tools.ietf.org/html/draft-sheng-weirds-icann-rws-dnrd-01
@@ -12,9 +12,9 @@ Licensed under the Apache License, Version 2.0 (the "License").
 Installation
 ------------
 
-Install using pip: `pip install -e git+git://github.com/novutec/whois_daemon.git`
+Install using pip: `pip install -e git+git://github.com/novutec/WhoisDaemon.git`
 
-Installing from source: `git clone git://github.com/novutec/whois_daemon.git; cd whois_daemon; python setup.py install`
+Installing from source: `git clone git://github.com/novutec/WhoisDaemon.git; cd WhoisDaemon; python setup.py install`
     
 Create your own configuration based on the example configuration file in example/config.yaml.
 To use existing backend handlers, import existing structure SQL file to your database.
@@ -49,7 +49,7 @@ in fcgi mode:
 Issues
 ------
 
-Please report any issues via https://github.com/novutec/whois_daemon/issues
+Please report any issues via https://github.com/novutec/WhoisDaemon/issues
 
 LICENSE and COPYRIGHT
 -----------------------
